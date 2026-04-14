@@ -7,6 +7,7 @@ export default defineConfig({
         main: 'index.html',
         pong: 'pong.html',
         snake: 'snake.html',
+        hangman: 'hangman.html',
       },
     },
   },

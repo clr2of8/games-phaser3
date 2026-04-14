@@ -8,6 +8,7 @@ A browser-based game portal featuring classic arcade games built with [Phaser 3]
 |-------|-------------|
 | 🏓 **Pong** | Classic paddle game – Player vs AI. First to 7 points wins. Use W/S or ↑/↓ to move your paddle. |
 | 🐍 **Snake** | Guide the snake to eat food and grow. Wrap around walls. Use arrow keys or WASD. |
+| 🪢 **Hangman** | Guess the hidden word one letter at a time. 6 wrong guesses and it's game over. Use keyboard to guess. |
 
 ## Getting Started
 
