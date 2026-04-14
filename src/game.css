@@ -1,0 +1,55 @@
+/* Shared game page layout */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: #0d0d1a;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+#back-bar {
+  width: 100%;
+  max-width: 900px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1.5rem;
+}
+
+.back-link {
+  color: #6366f1;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: color 0.15s;
+}
+
+.back-link:hover {
+  color: #a855f7;
+}
+
+.game-title {
+  color: #d0d4ff;
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+#game-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  padding: 0.5rem 1rem 2rem;
+}
+
+#game-container canvas {
+  border-radius: 8px;
+  box-shadow: 0 8px 40px rgba(99, 102, 241, 0.3);
+}
