@@ -117,6 +117,13 @@ class PongScene extends Phaser.Scene {
       w: Phaser.Input.Keyboard.KeyCodes.W,
       s: Phaser.Input.Keyboard.KeyCodes.S,
     });
+    this.input.keyboard.addCapture([
+      Phaser.Input.Keyboard.KeyCodes.UP,
+      Phaser.Input.Keyboard.KeyCodes.DOWN,
+      Phaser.Input.Keyboard.KeyCodes.W,
+      Phaser.Input.Keyboard.KeyCodes.S,
+      Phaser.Input.Keyboard.KeyCodes.SPACE,
+    ]);
 
     // ── Overlay group (for message screens) ──
     this.overlayGroup = this.add.group();
@@ -243,42 +250,42 @@ class PongScene extends Phaser.Scene {
   }
 
   // ── Update ─────────────────────────────────────────────────────────────────
-  update() {
+  update(_time, delta) {
     if (this.paused) return;
+    const dt = delta / 1000;
 
     // ── Player paddle ──
     /** @type {Phaser.Physics.Arcade.Body} */
     const playerBody = this.playerPaddle.body;
     const up = this.keys.up.isDown || this.keys.w.isDown;
     const down = this.keys.down.isDown || this.keys.s.isDown;
+    let playerDir = 0;
     if (up) {
-      playerBody.setVelocityY(-PADDLE_SPEED);
+      playerDir = -1;
     } else if (down) {
-      playerBody.setVelocityY(PADDLE_SPEED);
-    } else {
-      playerBody.setVelocityY(0);
+      playerDir = 1;
     }
 
-    // Clamp player paddle
+    this.playerPaddle.y += playerDir * PADDLE_SPEED * dt;
     this.playerPaddle.y = Phaser.Math.Clamp(
       this.playerPaddle.y,
       PADDLE_H / 2,
       HEIGHT - PADDLE_H / 2
     );
-    playerBody.reset(this.playerPaddle.x, this.playerPaddle.y);
+    playerBody.updateFromGameObject();
 
     // ── AI paddle ──
     /** @type {Phaser.Physics.Arcade.Body} */
     const aiBody = this.aiPaddle.body;
     const diff = this.ball.y - this.aiPaddle.y;
     const aiMove = diff * AI_REACTION;
-    const aiDelta = Phaser.Math.Clamp(aiMove, -PADDLE_SPEED * 0.016, PADDLE_SPEED * 0.016);
+    const aiDelta = Phaser.Math.Clamp(aiMove, -PADDLE_SPEED * dt, PADDLE_SPEED * dt);
     this.aiPaddle.y = Phaser.Math.Clamp(
       this.aiPaddle.y + aiDelta,
       PADDLE_H / 2,
       HEIGHT - PADDLE_H / 2
     );
-    aiBody.reset(this.aiPaddle.x, this.aiPaddle.y);
+    aiBody.updateFromGameObject();
 
     // ── Score detection (ball leaves left/right) ──
     const ballX = this.ball.x;
